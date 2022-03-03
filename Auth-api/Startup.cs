@@ -1,4 +1,5 @@
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services.Interfaces;
 using Services.Services;
+using Services.Users.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +63,7 @@ namespace Auth_api
 
             services.AddDbContext<AuthContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthDatabase")));
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddMediatR(typeof(InsertUserCommand).Assembly);
 
             
         }
